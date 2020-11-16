@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <script src="collection.js"></script>
+    <script>
+        Study.GetData(sortById);
+
+        Study.GetData(sortByTypeAndId);
+
+        Study.GetData(selectByType2);
+
+        Study.GetData(selectNotEmptyName);
+
+        Study.GetData(deleteSomeElements);
+
+        Study.GetData(insertSomeElement);
+
+        //Метод вывода в консоль
+        function consoleOutput(input) {
+            for (let value of input) {
+                console.log(`ID: ${value.id} | Имя: ${value.name} | Тип: ${value.type}`)
+            }
+        }
+
+        //1. Метод сортировки  элементов по свойству id по возрастанию.
+        function sortById(arr) {
+            arr.sort((a, b) => a.id > b.id ? 1 : -1);
+            consoleOutput(arr);
+        };
+
+
+        //2. Отсортировать все элементы по свойству type по возрастанию и свойству id по убыванию.
+
+        function sortByTypeAndId(arr) {
+            const sorted = arr.sort((a, b) => {
+                if (a.type < b.type) {
+                    return -1;
+                } else if (a.type > b.type) {
+                    return 1;
+                } else {
+                    if (a.id > b.id) {
+                        return -1;
+                    } else if (a.id < b.id) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            })
+            consoleOutput(sorted);
+        };
+
+
+        //3. Выбрать только элементы с type = 2.
+        function selectByType2(arr) {
+            for (let value of arr) {
+                if (value.type == 2) {
+                    array = new Array(value);
+                    consoleOutput(array);
+                }
+            }
+        };
+
+
+
+        //4. Выбрать только элементы, у которых заполнено имя.
+        function selectNotEmptyName(input) {
+            for (let value of input) {
+                if (value.name != null && typeof value.name !== "undefined") {
+                    array = new Array(value);
+                }
+                consoleOutput(array);
+            }
+        };
+
+        //5. Добавить в коллекцию элемент с недостающим идентификатором. 
+        //Отсортировать коллекцию в порядке убывания идентификаторов.
+        function insertSomeElement(input) {
+            var a = {
+                id: 5
+            };
+            input.splice(0, 0, a);
+            sortById(input);
+        };
+
+        //6. Вырезать из коллекции элементы с третьего по пятый
+        function deleteSomeElements(input) {
+            input.splice(2, 3);
+            consoleOutput(input);
+        };
+    </script>
+</body>
+
+</html>
